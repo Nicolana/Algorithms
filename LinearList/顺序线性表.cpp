@@ -66,14 +66,37 @@ Status Length(SqList L){
 }
 int LocateElem(SqList L, ElemType e){
     // 查找到则返回函数位置，否则返回0
-    //
+    int i;
+    for (i=0; i<L.length;i++){
+        if (L.data[i]==e)
+            return i+1;
+    }
+    return 0;
 }
 
 ElemType GetElem(SqList L, int i){
+    // 根据下标返回线性表中的元素，若该小标不存在则返回一个空的元素
     ElemType e;
     if (L.data && i >= 1 && i<=L.length){
-        e = L.data + i - 1;
-        return e;
+        e = L.data[i];
     }
-    return FALSE;
+    return e;
 }
+
+Status ListInsert(SqList &L, int i, ElemType e){
+    // 判断操作是否有效
+    if (i <=0 || i > L.length)
+        return ERROE;
+    if (L.length > L.MaxSize){
+        return ERROR;
+    }
+    // 第i个元素及之后的元素向后移动
+    for (int j=L.length; j>=i;j--)
+        L.data[j+1] = L.data[j];
+    L.data[i-1] = e;
+    L.length++;
+    return OK;
+}
+
+
+

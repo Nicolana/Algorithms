@@ -1,7 +1,13 @@
 #include <iostream>
+using namespace std;
 
 // 基本定义
 #define LIST_INIT_SIZE 79
+#define ERROR -1
+#define OK 1
+#define TRUE 1
+#define FALSE 0
+
 typedef int ElemType;
 typedef int Status;
 /*
@@ -28,7 +34,7 @@ Length(SqList L);                           // 求表长，返回线性表L的�
 LocateElem(SqList L, ElemType e);           // 按值查找操作。在表L中查找具有给定关键字值的元素
 GetElem(SqList L, int i);                   // 按位查找操作。获取表L中第i个位置的元素的值
 ListInsert(SqList &L, int i, ElemType e);   // 插入操作。在表L中第i个位置上插入指定元素e。
-ListDelete(SqList &L, int i, ElemType e);   // 删除操作。删除表L中第i个位置的元素，并用e返回删除元素的值
+ListDelete(SqList &L, int i, ElemType &e);   // 删除操作。删除表L中第i个位置的元素，并用e返回删除元素的值
 PrintList(SqList L);                        // 输出操作。按前后顺序输出线性表L的所有元素值。
 Empty(SqList L);                            // 判空操作。 若L为空表，则返回true， 否则返回 false 
 DestoryList(SqList &L);                     // 销毁操作。 销毁线性表，并释放线性表L所占用的内存空间
@@ -41,5 +47,33 @@ int main()
 
 
 Status InitList(SqList &L){
+    // 构造一个空的线性表L
+    // L.data = (ElemType *) malloc(LIST_INIT_SIZE * sizeof(ElemType));  // C语言动态分配语句
+    L.data = new ElemType[LIST_INIT_SIZE]; // C++ 动态分配语句
+    if (!L.data){
+        cout << "分配失败" << endl;
+        return ERROR;
+    }
+    L.length = 0;
+    L.MaxSize = LIST_INIT_SIZE;
+    return OK;
+}
 
+Status Length(SqList L){
+    if (L.data)
+        return L.length;
+    return ERROR;
+}
+int LocateElem(SqList L, ElemType e){
+    // 查找到则返回函数位置，否则返回0
+    //
+}
+
+ElemType GetElem(SqList L, int i){
+    ElemType e;
+    if (L.data && i >= 1 && i<=L.length){
+        e = L.data + i - 1;
+        return e;
+    }
+    return FALSE;
 }

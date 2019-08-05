@@ -86,7 +86,7 @@ ElemType GetElem(SqList L, int i){
 Status ListInsert(SqList &L, int i, ElemType e){
     // 判断操作是否有效
     if (i <=0 || i > L.length)
-        return ERROE;
+        return ERROR;
     if (L.length > L.MaxSize){
         return ERROR;
     }
@@ -98,5 +98,29 @@ Status ListInsert(SqList &L, int i, ElemType e){
     return OK;
 }
 
+Status ListDelete(SqList &L, int i, ElemType &e){
+    if (i < 1 || i > L.length)
+        return ERROR;
+    e = L.data[i];
+    int j;
+    for (j=i;j < L.length;j++){
+        L.data[j] = L.data[j+1];
+    }
+    L.length--;
+    return OK;
+}
 
 
+Status PrintList(SqList L){
+    int i;
+    cout << "[";
+    for (i=0; i < L.length; i++){
+        cout << L.data[i] << ", ";
+    }
+    cout << "]" << endl;
+    return OK;
+}
+
+Status DestoryList(SqList &L){
+
+}

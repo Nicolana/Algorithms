@@ -14,6 +14,7 @@ typedef struct LNode{
     struct LNode *next;
 }LNode, *LinkList;
 
+
 LinkList CreatList(LinkList &L){
     // 从表尾到表头逆向建立单链表L，每次均在头节点之后插入元素
     LNode *s; int x;
@@ -87,4 +88,3 @@ int main()
     std::cout << "Hello world" << std::endl;
     return 0;
 }
-

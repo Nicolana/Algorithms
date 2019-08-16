@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <malloc.h>
+#include <stdlib.h>
 
 typedef int Status;
 typedef int ElemType;
@@ -9,55 +10,54 @@ typedef int ElemType;
 #define TRUE 1
 #define FALSE 0
 
-type struct DNode{
+typedef struct DNode{
   ElemType data;
   struct DNode *prior, *next;
 }DNode, *DLinkList;
 
-// 原型定义
-DLinkList CreateList();
-
-Status PrintDLink(DLinkList L);
+// 閸樼喎鐎风€规矮绠�
+DLinkList CreateList(DLinkList L);
+void PrintDLink(DLinkList L);
 
 int main(){
-  DNode L;
-  CreatList(&L);
+  DLinkList L;
+  L = CreateList(L);
+  PrintDLink(L);
   return 0;
 }
 
-DLinkList CreatList(){
-  DLinkList L;
-  DNode *s; int x;
-
-  // 创建头节点
-  L = (LinkList) malloc(sizeof(DNode));
+DLinkList CreateList(DLinkList L){
+  // 閸掓稑缂撴径纾嬪Ν閻愶拷
+  L = (DLinkList) malloc(sizeof(DNode));
   L->next = NULL;
   L->prior = NULL;
+  DNode *s, *p = L; // p 灏炬寚閽�
 
-  // 传入元素
+  int x;
+  // 娴肩姴鍙嗛崗鍐
   scanf("%d", &x);
   while (x != 9999){
-    s = (DNode*)malloc(sizeof(DNode));
+    s = (DLinkList)malloc(sizeof(DNode));
     s->data = x;
-    s->next = L->next;
-    s->prior = L;
-    L->next = s;
+    s->prior = p;
+    // s->prior->next = s;
+    p->next = s;
+    p = s; // 绉诲姩灏炬寚閽�
     scanf("%d", &x);
   }
   return L;
 }
 
-Status PrintDLink(DLinkList L){
-  if (L == NULL){
-    return FALSE;
+void PrintDLink(DLinkList L){
+  DNode *s = L->next;
+  printf("L = [");
+  if (s != NULL){
+    printf("%d", s->data);
+    s = s->next;
   }
-
-  printf("list = [");
-
-  while (L->next != NULL){
-    L = L->next;
-    printf("%d", L->data);
-  }
-
-  printf("]\n")
+  while (s != NULL){
+    printf(",%d", s->data);
+    s = s->next;
+  };
+  printf("]\n");
 }

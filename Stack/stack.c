@@ -20,7 +20,7 @@ bool Pop(SqlStack *S, ElemType *x); // 出栈，若栈S非空，弹出栈顶元�
 bool GetTop(SqlStack S, ElemType *x); // 读取栈顶元素，失败返回空元素
 void ClearStack(SqlStack *S); // 销毁栈， 并释放栈S占用的存储空间。
 
-int main(){
+int braceMatch(){
   // ElemType ret;
   //
   // SqlStack stack;
@@ -79,6 +79,31 @@ int main(){
     }
   }
   printf("brace is ok!");
+  return 0;
+}
+
+int main(int argc, char const *argv[]) {
+  SqlStack stack;
+  InitStack(&stack);
+
+  char consequence[30] = "a*(b+c)-d";
+  int i;
+  char ret;
+
+  for (i = 0; i<len(consequence);i++){
+    char character = consequence[i];
+    switch (character) {
+      case '(': Push(&stack, character); break;
+      case ')':
+        GetTop(&stack, &ret);
+        while (ret != '(' || ret != ' '){
+          Pop(&stack, &ret);
+          printf("%s", ret);
+          GetTop(&stack, &ret);
+        }
+        ret = ' ';
+    }
+  }
   return 0;
 }
 

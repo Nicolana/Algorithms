@@ -35,8 +35,23 @@ void CreateInThread(ThreadTree T){
 
 // 线索二叉树遍历(中序生成的线索二叉树)
 ThreadNode *Firstnode(ThreadNode *p){
+  // 是以p为起点的，中序序列中的第一个节点
   while (p->ltag == 0) p = p->lchild;
+  return p;
 }
+
+ThreadNode *Nextnode(ThreadNode *p){
+  // 中序的后继节点一定再该节点的右边，而且一定是他子树最左下的一个
+  if (p->rtag ==0) return Firstnode(p->rchild);
+  else return p->rchild; // rtag = 1 直接返回后继线索
+}
+
+// 不含头节点的中序线索二叉树的中序遍历的算法
+void Inorder(ThreadNode *T){
+  for (ThreadNode *p=Firstnode(T);p!=NULL; p = Nextnode(p))
+    visit(p);
+}
+
 
 int main(int argc, char const *argv[]) {
   /* code */
